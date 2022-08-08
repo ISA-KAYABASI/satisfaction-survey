@@ -1,0 +1,52 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	width: 100%;
+	overflow-x: hidden;
+	background: linear-gradient(135deg, rgba(53, 53, 112, 0.63), rgba(110, 60, 69, 0.73));
+}
+
+h1 {
+	font-size: 22px;
+	text-align: center;
+	padding: 15px 25px;
+	border-radius: 4px;
+}
+
+.ques-box {
+	width: 100%;
+	max-width: 800px;
+	padding: 15px 25px;
+	margin: 50px auto 0 auto;
+	border-radius: 7px;
+	background: linear-gradient(135deg, rgba(64, 36, 66, 0.62), rgba(41, 84, 73, 0.53));
+
+}
+
+.option {
+	display: flex;
+	flex-direction: row;
+}
+
+.title {
+	font-size: 18px;
+	font-weight: 500;
+	color: #9bdede;
+
+}
+
+.option p {
+	margin-left: 15px;
+	position: relative;
+	margin-top: 12px;
+}
+
+/*footer {*/
+/*	height: 80px;*/
+/*	text-align: center;*/
+/*	line-height: 80px;*/
+/*}*/

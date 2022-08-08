@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Managment System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/createMessage.css}">
+  <script src="https://kit.fontawesome.com/e3269ee35b.js" crossorigin="anonymous"></script>
+
+
+  <style>
+    body {
+      background: linear-gradient(135deg, rgba(53, 53, 112, 0.63), rgba(110, 60, 69, 0.73));
+    }
+    .main-container{
+      min-height: calc(100vh - 136px);
+    }
+    footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: red;
+      color: white;
+      text-align: center;
+      height: 60px;
+      line-height: 80px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+        <div class="navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+          <li class="nav-item"><a  class="nav-link" th:href="@{/logout}"> Logout <i class="fa fa-sign-out" aria-hidden="true"></i> </a></li>
+        </div>
+
+
+      </ul>
+
+
+    </div>
+  </div>
+</nav>
+
+
+
+
+<br>
+<br>
+<br>
+
+
+<div class="main-container container py-5 px-4">
+  <div class="row" style="justify-content: center;" >
+    <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+      <h1 class="text-center">Create New Message</h1>
+      <div class="card-body">
+        <form th:action="@{/messages}" th:object = "${message}" method="POST">
+
+
+
+
+          <div class="form-group">
+           <br>
+            <h3>  <label>Costumer Satisfaction Message from </label>  <span sec:authentication="principal.username"> User </span>  </h3>
+          </div>
+
+
+          <div class="form-group">
+
+
+
+            <textarea  rows="4" cols="50" name="messageId" id="messageId" th:field = "*{messageId}" style="font-family:sans-serif;font-size:1.2em; background-color:lightblue" placeholder="Please enter your message" required="required"></textarea>
+
+          </div>
+
+
+          <br>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Importing Footer -->
+<div th:insert="footer.html :: footer"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>

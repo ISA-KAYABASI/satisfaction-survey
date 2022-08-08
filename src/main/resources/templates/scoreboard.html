@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!--	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"-->
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/score.css}">
+	<script src="https://kit.fontawesome.com/e3269ee35b.js" crossorigin="anonymous"></script>
+	<title>Score Board</title>
+
+
+
+	<style>
+		body {
+			background: linear-gradient(135deg, rgba(53, 53, 112, 0.63), rgba(110, 60, 69, 0.73));
+		}
+		.main-container{
+			min-height: calc(100vh - 136px);
+		}
+		footer {
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			background-color: red;
+			color: white;
+			text-align: center;
+			height: 60px;
+			line-height: 80px;
+		}
+	</style>
+
+
+</head>
+<body>
+
+<!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/">Home</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+				<li class="nav-item">
+					<div class="dropdown" sec:authorize="isAuthenticated()">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							Dropdown button
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="user">User Managment System</a></li>
+							<li><a class="dropdown-item" href="messages">Messages</a></li>
+							<li><a class="dropdown-item" href="#">Something else here</a></li>
+						</ul>
+
+
+					</div>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="/score">Score Board</a>
+				</li>
+
+				<div class="navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+					<li class="nav-item"><a  class="nav-link" th:href="@{/logout}"> Logout <i class="fa fa-sign-out" aria-hidden="true"></i> </a></li>
+				</div>
+
+
+			</ul>
+
+
+		</div>
+	</div>
+</nav>
+	
+	<!-- Main Container Start -->
+	<div class="main-container container py-5 px-4">
+		<h3 class="bg-danger text-center mb-5 p-2">Surveys</h3>
+		
+		<table class="bg-dark text-light">
+			<tr>
+				<th>Name</th>
+				<th>Satisfaction</th>
+				<th>Messages</th>
+			</tr>
+			<tr th:each="score : ${sList}">
+				<td th:text="${score.username}"></td>
+				<td th:text="${score.satisfaction}"></td>
+				<td style="word-wrap: break-word; overflow-wrap: break-word;" th:text="${score.messageId}"></td>
+			</tr>
+		</table>
+
+		<form th:action="download">
+			<button type="submit" class="btn btn-danger d-block mx-auto mt-4 mb-5">Download scoreboard as Excel format</button>
+		</form>
+
+
+	</div>
+
+
+
+	<!-- Importing Footer -->
+	<div th:insert="footer.html :: footer"></div>
+	
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

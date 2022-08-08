@@ -1,0 +1,38 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	width: 100%;
+	overflow-x: hidden;
+	background: linear-gradient(135deg, rgba(53, 53, 112, 0.63), rgba(110, 60, 69, 0.73));
+}
+
+.main-container {
+	min-height: calc(100vh - 136px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+}
+
+.card {
+	width: 100%;
+	max-width: 800px;
+	margin-top: 100px;
+	background: linear-gradient(135deg, rgba(64, 36, 66, 0.62), rgba(41, 84, 73, 0.53));
+}
+
+img {
+	width: 100%;
+	max-width: 350px;
+	position: relative;
+	display: block;
+	margin: -180px auto 50px auto;
+}
+
+.card button {
+	width: 45%;
+}

@@ -1,0 +1,29 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	width: 100%;
+	overflow-x: hidden;
+	background: linear-gradient(135deg, rgba(53, 53, 112, 0.63), rgba(110, 60, 69, 0.73));
+}
+
+.main-container {
+	min-height: calc(100vh - 136px);
+	background: linear-gradient(135deg, rgba(64, 36, 66, 0.62), rgba(41, 84, 73, 0.53));
+}
+
+table {
+	width: 100%;
+	text-align: center;
+}
+
+tr {
+	border: 1px solid white;
+}
+
+th, td {
+	padding: 10px;
+}

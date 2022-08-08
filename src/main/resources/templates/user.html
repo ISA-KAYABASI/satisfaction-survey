@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Registration and Login app welcome </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e3269ee35b.js" crossorigin="anonymous"></script>
+
+
+
+    <style>
+        body {
+            background: linear-gradient(135deg, rgba(53, 53, 112, 0.63), rgba(110, 60, 69, 0.73));
+        }
+        .main-container{
+            min-height: calc(100vh - 136px);
+        }
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            height: 60px;
+            line-height: 80px;
+        }
+    </style>
+</head>
+<body>
+<!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <div class="dropdown" sec:authorize="isAuthenticated()">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown button
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="user">User Managment System</a></li>
+                            <li><a class="dropdown-item" href="messages">Messages</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+
+
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/score">Score Board</a>
+                </li>
+
+                <div class="navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                    <li class="nav-item"><a  class="nav-link" th:href="@{/logout}"> Logout <i class="fa fa-sign-out" aria-hidden="true"></i> </a></li>
+                </div>
+
+
+            </ul>
+
+
+        </div>
+    </div>
+</nav>
+
+
+
+<br>
+
+<div class="main-container container py-5 px-4" style="margin: 100px">
+    <div class="row" style="justify-content: center;" >
+        <h1>User List</h1>
+    </div>
+    <table class="table table-dark table-hover">
+
+        <thead class="table-dark">
+        <tr>
+            <th> User First Name </th>
+            <th> User Last Name </th>
+            <th> User Email </th>
+<!--            <th sec:authorize="hasRole('ROLE_ADMIN')"> Actions </th>-->
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each = "user: ${users}">
+            <td th:text = "${user.firstName}"></td>
+            <td th:text = "${user.lastName}"></td>
+            <td th:text = "${user.email}"></td>
+
+        </tr>
+        </tbody>
+
+    </table>
+
+
+
+
+
+
+    <!-- Importing Footer -->
+    <div th:insert="footer.html :: footer"></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</div>
+</body>
+</html>

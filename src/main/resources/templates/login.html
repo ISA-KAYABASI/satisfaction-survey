@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/students.css}">
+    <script src="https://kit.fontawesome.com/e3269ee35b.js" crossorigin="anonymous"></script>
+
+
+    <style>
+        body {
+            background: linear-gradient(135deg, rgba(53, 53, 112, 0.63), rgba(110, 60, 69, 0.73));
+        }
+        .main-container{
+            min-height: calc(100vh - 136px);
+        }
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: red;
+            color: white;
+            text-align: center;
+            height: 60px;
+            line-height: 80px;
+        }
+    </style>
+
+</head>
+<body>
+
+
+<!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                <li class="nav-item">
+                    <div class="dropdown" sec:authorize="isAuthenticated()">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown button
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="user">Student Managment System</a></li>
+                            <li><a class="dropdown-item" href="messages">Messages</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+
+
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link"  sec:authorize="isAuthenticated()" href="/score">Score Board</a>
+                </li>
+
+                <div class="navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                    <li class="nav-item"><a  class="nav-link" th:href="@{/logout}"> Logout <i class="fa fa-sign-out" aria-hidden="true"></i> </a></li>
+                </div>
+
+
+            </ul>
+
+
+        </div>
+    </div>
+</nav>
+
+<br>
+
+<div class="main-container container py-5 px-4">
+
+    <div class="row" style="justify-content: center;" >
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1> User Login </h1>
+            <form th:action="@{/login}" method="post">
+
+                <!--     error message    -->
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Invalid username or password.</div>
+                </div>
+
+                <!--  logout message  -->
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">You have been logged out.</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username"> Email   </label> :
+                    <input type="email" class="form-control" id="username" name="username"
+                           placeholder="Enter Email" autofocus="autofocus" required="required" />
+                </div>
+
+                <div class="form-group">
+                    <label for="password"> Password  </label> :
+                    <input type="text" class="form-control" id="password" name="password"
+                           placeholder="Enter Password" required="required" />
+                </div>
+<br>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <input type="submit" name="login-submit" id="login-submit"
+                                   class="form-control btn btn-primary" value="Log In" />
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+            <div class="form-group">
+                <span>New user? <a href="/" th:href="@{/registration}">Register here</a> </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+<!-- Importing Footer -->
+<div th:insert="footer.html :: footer"></div>
+
+
+</body>
+</html>

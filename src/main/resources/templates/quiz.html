@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/quiz.css}">
+	<script src="https://kit.fontawesome.com/e3269ee35b.js" crossorigin="anonymous"></script>
+	<title>Quiz Page</title>
+
+
+
+	<style>
+		body {
+			background: linear-gradient(135deg, rgba(53, 53, 112, 0.63), rgba(110, 60, 69, 0.73));
+		}
+		.main-container{
+			min-height: calc(100vh - 136px);
+		}
+		footer {
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			background-color: red;
+			color: white;
+			text-align: center;
+			height: 60px;
+			line-height: 80px;
+		}
+	</style>
+
+
+</head>
+<body>
+
+<!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/">Home</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+				<li class="nav-item">
+					<div class="dropdown" sec:authorize="isAuthenticated()">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							Dropdown button
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="user">User Managment System</a></li>
+							<li><a class="dropdown-item" href="messages">Messages</a></li>
+							<li><a class="dropdown-item" href="#">Something else here</a></li>
+						</ul>
+
+
+					</div>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="/score">Score Board</a>
+				</li>
+
+				<div class="navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+					<li class="nav-item"><a  class="nav-link" th:href="@{/logout}"> Logout <i class="fa fa-sign-out" aria-hidden="true"></i> </a></li>
+				</div>
+
+
+			</ul>
+
+
+		</div>
+	</div>
+</nav>
+	
+	<div class="main-container container py-5 px-4">
+		<h1 class="text-light" style="background: linear-gradient(135deg, #cb5977, #8ce3d0);">Please Fill The Form</h1>
+
+
+<!--		<form th:action="@{/messages}" th:object = "${message}" method="POST">&ndash;&gt;-->
+
+		<form th:action="submit" method="POST" th:object=${qForm}>
+<!--		<form action="submit" method="POST" th:object=${qForm}>-->
+			<div  class="ques-box text-light" th:each="ques, i: ${qForm.questions}">
+				<p class="title" th:text="${ques.title}"></p>
+				
+				<div class="option">
+					<input type="radio" th:name="|questions[${i.index}].chose|" th:value="1" />
+					<p th:text="${ques.optionA}"></p>
+				</div>
+
+				<div class="option">
+					<input type="radio" th:name="|questions[${i.index}].chose|" th:value="2" />
+					<p th:text="${ques.optionB}"></p>
+				</div>
+				
+				<div class="option">
+					<input type="radio" th:name="|questions[${i.index}].chose|" th:value="3" />
+					<p th:text="${ques.optionC}"></p>
+				</div>
+
+				<div class="option">
+					<input type="radio" th:name="|questions[${i.index}].chose|" th:value="4" />
+					<p th:text="${ques.optionD}"></p>
+				</div>
+
+				<div class="option">
+					<input type="radio" th:name="|questions[${i.index}].chose|" th:value="5" />
+					<p th:text="${ques.optionE}"></p>
+				</div>
+				
+				<input type="hidden" th:name="|questions[${i.index}].quesId|" th:value="${ques.quesId}" />
+				<input type="hidden" th:name="|questions[${i.index}].title|" th:value="${ques.title}" />
+				<input type="hidden" th:name="|questions[${i.index}].ans1|" th:value="${ques.ans1}" />
+				<input type="hidden" th:name="|questions[${i.index}].ans2|" th:value="${ques.ans2}" />
+				<input type="hidden" th:name="|questions[${i.index}].ans3|" th:value="${ques.ans3}" />
+				<input type="hidden" th:name="|questions[${i.index}].ans4|" th:value="${ques.ans4}" />
+				<input type="hidden" th:name="|questions[${i.index}].ans5|" th:value="${ques.ans5}" />
+
+				</div>
+
+
+		   <div class="ques-box bg-dark text-light">
+
+				<p>If you have any suggestions or complaints you want to add, please share them with us.</p>
+				<textarea maxlength="250" minlength="20" type="text" th:name="messageId" th:rows="10" cols="100" style="margin: 10px:" placeholder="Enter your Message" required="required"></textarea>
+				<p class="text-danger warning" th:if="${warning}" th:text="${warning}"></p>
+		   </div>
+
+			<button type="submit" class="btn btn-danger d-block mx-auto mt-4 mb-5">Submit Answer</button>
+		</form>
+	</div>
+
+	<!-- Importing Footer -->
+	<div th:insert="footer.html :: footer"></div>
+	
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

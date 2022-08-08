@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/result.css}">
+	<script src="https://kit.fontawesome.com/e3269ee35b.js" crossorigin="anonymous"></script>
+	<title>Result Page</title>
+
+	<style>
+		body {
+			background: linear-gradient(135deg, rgba(53, 53, 112, 0.63), rgba(110, 60, 69, 0.73));
+		}
+		.main-container{
+			min-height: calc(100vh - 136px);
+		}
+		footer {
+			position: fixed;
+			left: 0;
+			bottom: 0;
+			width: 100%;
+			background-color: red;
+			color: white;
+			text-align: center;
+			height: 60px;
+			line-height: 80px;
+		}
+	</style>
+
+</head>
+<body>
+
+<!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="/">Home</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+				<li class="nav-item">
+					<div class="dropdown" sec:authorize="isAuthenticated()">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							Dropdown button
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="user">User Managment System</a></li>
+							<li><a class="dropdown-item" href="messages">Messages</a></li>
+							<li><a class="dropdown-item" href="#">Something else here</a></li>
+						</ul>
+
+					</div>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="/score">Score Board</a>
+				</li>
+
+				<div class="navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+					<li class="nav-item"><a  class="nav-link" th:href="@{/logout}"> Logout <i class="fa fa-sign-out" aria-hidden="true"></i> </a></li>
+				</div>
+			</ul>
+		</div>
+	</div>
+</nav>
+	
+	<!-- Main Container Start -->
+	<div class="main-container container py-5 px-4">
+		<div class="card bg-dark text-light py-5 px-4 mx-auto">
+			<img th:src="@{/images/exam.svg}" alt="image">
+			
+			<h3 class="bg-danger text-center mb-5 p-2">Results</h3>
+
+
+			
+			<div class="d-flex justify-content-center">
+				<h6 class="bg-warning text-center mb-4 p-1">Participant name: </h6>
+			</div>
+			<div class="d-flex justify-content-center">
+				<p th:if="${result}" th:text="${result.username}"></p>
+			</div>
+
+
+			<div class="d-flex justify-content-center">
+				<h6 class="bg-warning text-center mb-4 p-1">Costumer Satisfaction: </h6>
+			</div>
+			<div class="d-flex justify-content-center">
+				<p th:if="${result}" th:text="${result.satisfaction}"></p>
+			</div>
+
+
+				<div class="d-flex justify-content-center">
+					<h6 class="bg-warning text-center mb-4 p-1">Participant massage: </h6>
+				</div>
+			    <div class="d-flex justify-content-center w3-margin">
+					<p style="overflow: auto" th:if="${result}" th:text="${result.messageId}"></p>
+			    </div>
+
+
+
+			<h4 class="bg-secondary text-center mb-4 p-1">Your result sended to your email addresse</h4>
+
+			<div class="d-flex justify-content-center mt-4">
+				<button type="button" th:onclick="window.location.href='/score'"
+					class="btn btn-outline-warning mx-auto">View Score Board</button>
+				<button type="button" th:onclick="window.location.href='/'"
+					class="btn btn-outline-warning mx-auto">Back to Homepage</button>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Importing Footer -->
+	<div th:insert="footer.html :: footer"></div>
+	
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
