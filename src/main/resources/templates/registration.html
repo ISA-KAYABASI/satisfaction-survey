@@ -74,21 +74,24 @@
     </div>
 </nav>
 
-<br>
-<br>
-<br>
 <!-- Create HTML registration form -->
 <div class="main-container container py-5 px-4" >
     <div class="row" style="justify-content: center;" >
         <div class="col-md-6 col-md-offset-3">
 
-            <!-- success message -->
-            <div th:if="${param.success}">
-                <div class="alert alert-info">You are succesfully registered to our awesome app!</div>
-            </div>
+
 
             <h1>Registration</h1>
             <form th:action="@{/registration}" method="post" th:object="${user}">
+
+                <!-- success message -->
+                <div th:if="${param.success}">
+                    <div class="alert alert-info">You are succesfully registered to our awesome app!</div>
+                </div>
+                <!--     error message    -->
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Email address already exist</div>
+                </div>
 
                 <div class="form-group">
                     <label class="control-label" for="firstName">
@@ -111,6 +114,7 @@
                     <input type="email" id="email" class="form-control" th:field="*{email}" required autofocus="autofocus" />
                 </div>
 
+
                 <div class="form-group">
                     <label class="control-label" for="password">
                         Password
@@ -118,7 +122,7 @@
                     <input id="password" class="form-control" type="password" th:field="*{password}" required autofocus="autofocus" />
                 </div>
 
-                <input type="hidden" id="enterValue" class="form-control" th:field="*{enterValue}"/>
+<!--                <input type="text" id="enterValue" class="form-control" th:field="*{enterValue}"/>-->
 <br>
                 <div class="form-group">
                     <button type="submit" class="btn btn-success">Register</button>

@@ -14,6 +14,7 @@ public class UserRegistrationDto {
     private String email;
     private String password;
     private int enterValue=2;
+    private boolean activeOrPassive=true;
 
 
 

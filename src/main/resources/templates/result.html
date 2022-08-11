@@ -51,7 +51,7 @@
 							Dropdown button
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<li><a class="dropdown-item" href="user">User Managment System</a></li>
+							<li><a class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')" href="user">User Managment System</a></li>
 							<li><a class="dropdown-item" href="messages">Messages</a></li>
 							<li><a class="dropdown-item" href="#">Something else here</a></li>
 						</ul>

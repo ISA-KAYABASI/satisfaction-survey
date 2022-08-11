@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="ISO-8859-1">
     <title>Registration and Login app welcome </title>
+<!--    <link rel="stylesheet" th:href="@{/css/user.css}">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/e3269ee35b.js" crossorigin="anonymous"></script>
 
@@ -45,7 +46,7 @@
                             Dropdown button
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="user">User Managment System</a></li>
+                            <li><a class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')" href="user">User Managment System</a></li>
                             <li><a class="dropdown-item" href="messages">Messages</a></li>
                             <li><a class="dropdown-item" href="#">Something else here</a></li>
                         </ul>
@@ -78,14 +79,15 @@
     <div class="row" style="justify-content: center;" >
         <h1>User List</h1>
     </div>
-    <table class="table table-dark table-hover">
+<!--    <form th:action="@{/users/{id}(id=${user.id})}" th:object = "${user}" method="POST">-->
+     <table class="table table-dark table-hover">
 
         <thead class="table-dark">
         <tr>
             <th> User First Name </th>
             <th> User Last Name </th>
             <th> User Email </th>
-<!--            <th sec:authorize="hasRole('ROLE_ADMIN')"> Actions </th>-->
+            <th sec:authorize="hasRole('ROLE_ADMIN')"> Actions </th>
         </tr>
         </thead>
         <tbody>
@@ -95,15 +97,35 @@
             <td th:text = "${user.lastName}"></td>
             <td th:text = "${user.email}"></td>
 
+            <td>
+
+<!--                <form th:action="@{/users/{id} (id=${user.id})}" th:object = "${user}" method="POST" name="form">-->
+                <form th:action="@{/users/{id} (id=${user.id})}" th:object = "${user}" method="POST">
+                    <div class="form-group">
+                        <div class="form-check form-switch" >
+                            <label th:switch="${user.isActiveOrPassive()}">
+                                <p th:case="true"> User is active</p>
+                                <p th:case="false">User is passive</p>
+                            </label>
+                            <input type="checkbox"  class="form-check-input" role="switch" id="activeOrPassive" th:name="activeOrPassive"  th:checked="${user.isActiveOrPassive()}" onChange="this.form.submit()" />
+                        </div>
+                    </div>
+                </form>
+
+
+
+<!--                <form th:action="@{/users/{id} (id=${user.id})}" th:object = "${user}" method="POST">-->
+<!--                 -->
+<!--&lt;!&ndash;                    <div class="form-check form-check-inline">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button type="submit" name="firstName" th:field = "*{activeOrPassive}" class="form-control"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--                </form>-->
+            </td>
+
         </tr>
         </tbody>
 
     </table>
-
-
-
-
-
 
     <!-- Importing Footer -->
     <div th:insert="footer.html :: footer"></div>

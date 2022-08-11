@@ -7,6 +7,11 @@ import com.isakayabasi.maintermproject.repository.IUserRepository;
 import com.isakayabasi.maintermproject.service.Service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,16 +40,18 @@ public class UserServiceImpl  implements IUserService {
 
 
     @Override
-    public User save(UserRegistrationDto registrationDto) {
+    public User save(UserRegistrationDto registrationDto){
         User user=new User(
                 registrationDto.getFirstName(),
                 registrationDto.getLastName(),
                 registrationDto.getEmail(),
                 passwordEncoder.encode(registrationDto.getPassword()),
                 registrationDto.getEnterValue(),
+                registrationDto.isActiveOrPassive(),
                 Arrays.asList(new Role("ROLE_USER")));
 
-        return  iUserRepository.save(user);
+             return  iUserRepository.save(user);
+
     }
 
     @Override
@@ -60,11 +67,21 @@ public class UserServiceImpl  implements IUserService {
 
         if(user == null ){
             throw new UsernameNotFoundException("Invalid username or password. ");
+        }else{
+
+
+            if (user.isActiveOrPassive()){
+                return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),mapRolessToAuthorities(user.getRoles()));
+            }else {
+                throw new UsernameNotFoundException("user blocked");
+            }
+
+
         }
         // email = username
 //        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),mapRolessToAuthorities(user.getRoles()));
  //  }
-   return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),mapRolessToAuthorities(user.getRoles()));
+
 }
 
 
@@ -72,4 +89,25 @@ public class UserServiceImpl  implements IUserService {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 
     }
+
+    ////////////////////////////////////
+
+    @Override
+    public User getUserById(Long id) {
+        return iUserRepository.findById(id).get();
+    }
+
+    @Override
+    public User updateUser(User user) {
+        return iUserRepository.save(user);
+    }
+
+
+
+
+
+
+
+
+
 }

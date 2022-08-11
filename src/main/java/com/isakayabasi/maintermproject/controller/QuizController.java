@@ -114,26 +114,16 @@ public class QuizController {
 
 		if(!submitted) {
 
-
-
 			result.setSatisfaction(resultService.getResultSatisfaction(qForm));
 			result.setMessageId(resultService.getMessageId(qForm));
 			result.setTotalCorrect(resultService.getResultPoint(qForm));
-
 			result.setMessageId(messageId);
-
 			resultService.saveSatisfaction(result);
-
 			emailService.sendEmail(principal);
-
-
-
-
 
 			submitted = true;
 			if (principal.getName()== "admin@gmail.com"){
-			}
-			else {
+			} else {
 			User currentUser = uRepo.findByEmail(principal.getName());
 			currentUser.setEnterValue(1);
 			uRepo.save(currentUser);

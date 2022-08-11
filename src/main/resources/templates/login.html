@@ -84,9 +84,19 @@
             <h1> User Login </h1>
             <form th:action="@{/login}" method="post">
 
+
+                <!-- success message -->
+                <div th:if="${param.success}">
+                    <div class="alert alert-info">You are succesfully registered to our awesome app!</div>
+                </div>
+
+
+
+
+
                 <!--     error message    -->
                 <div th:if="${param.error}">
-                    <div class="alert alert-danger">Invalid username or password.</div>
+                    <div class="alert alert-danger">Invalid username and password.</div>
                 </div>
 
                 <!--  logout message  -->
@@ -116,6 +126,7 @@
                 </div>
 
             </form>
+
             <div class="form-group">
                 <span>New user? <a href="/" th:href="@{/registration}">Register here</a> </span>
             </div>
