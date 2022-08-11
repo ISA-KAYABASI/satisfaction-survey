@@ -43,12 +43,13 @@
                 <li class="nav-item">
                     <div class="dropdown" sec:authorize="isAuthenticated()">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown button
+                            Options
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item" sec:authorize="hasRole('ROLE_ADMIN')" href="user">User Managment System</a></li>
                             <li><a class="dropdown-item" href="messages">Messages</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item" target="_blank" href="https://github.com/ISA-KAYABASI/Survey-Satisfaction-Application/commits?author=ISA-KAYABASI">Surprise</a></li>
+
                         </ul>
 
 
@@ -75,7 +76,7 @@
 
 <br>
 
-<div class="main-container container py-5 px-4" style="margin: 100px">
+<div class="main-container container py-5 px-4">
     <div class="row" style="justify-content: center;" >
         <h1>User List</h1>
     </div>
@@ -127,11 +128,12 @@
 
     </table>
 
-    <!-- Importing Footer -->
-    <div th:insert="footer.html :: footer"></div>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </div>
+<!-- Importing Footer -->
+<div th:insert="footer.html :: footer"></div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </body>
 </html>
