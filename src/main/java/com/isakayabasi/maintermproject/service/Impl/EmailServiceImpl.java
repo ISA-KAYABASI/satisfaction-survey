@@ -38,7 +38,7 @@ public class EmailServiceImpl implements EmailService {
 
     public String sendEmail(Principal principal) {
 
-        if (principal.getName()=="admin@gmail.com"){
+        if (principal.getName()=="admin"){
 
             SimpleMailMessage message = new SimpleMailMessage();
 
@@ -60,7 +60,7 @@ public class EmailServiceImpl implements EmailService {
         message.setFrom("dinyester.975@gmail.com");
         message.setTo(principal.getName());
         message.setSubject("Online Survey Results");
-        message.setText("Survey Result : "+result1.getSatisfaction() +"\n"+ "\n" +   "Thank you for taking the time to complete this survey. We truly value the information you have provided." + "\n" + "Your responses will contribute to our analyses of the texts and suggest new lines of approach to the perfect data.");
+        message.setText("Dear "+result1.getUsername()+"\n"+ "\n" +   "Thank you for taking the time to complete this survey. We truly value the information you have provided." + "\n" + "Your responses will contribute to our analyses of the texts and suggest new lines of approach to the perfect data."+"\n"+ "\n" +"Best Regards"+"\n" +"Full Stack Java Developer"+"\n"+"Isa Kayabasi" );
 
         javaMailSender.send(message);
 

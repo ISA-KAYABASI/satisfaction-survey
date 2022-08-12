@@ -66,11 +66,11 @@ public class QuizController {
 	@PostMapping("/quiz")
 	public String quiz(Model m, Principal principal, RedirectAttributes ra, User user) {
 
-
 		submitted = false;
 
 
-			if (principal.getName()== "admin@gmail.com"){
+
+			if (principal.getName()== "admin"){
 				result.setUsername(principal.getName());
 				QuestionForm qForm = qService.getQuestions();
 				m.addAttribute("qForm", qForm);
@@ -109,7 +109,7 @@ public class QuizController {
 
 	@PostMapping("/submit")
 	public String submit(@ModelAttribute QuestionForm qForm,String messageId, Model m,Principal principal,User user) {
-
+		User currentUser = uRepo.findByEmail(principal.getName());
 		try{
 
 		if(!submitted) {
@@ -122,12 +122,14 @@ public class QuizController {
 			emailService.sendEmail(principal);
 
 			submitted = true;
-			if (principal.getName()== "admin@gmail.com"){
+			if (principal.getName()== "admin"){
+				return "result.html";
 			} else {
-			User currentUser = uRepo.findByEmail(principal.getName());
+
 			currentUser.setEnterValue(1);
 			uRepo.save(currentUser);
-		}}
+			}
+		}
 		return "result.html";
 
 	} catch (Exception e) {
