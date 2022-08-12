@@ -2,13 +2,17 @@ package com.isakayabasi.maintermproject.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.util.Collection;
 
 
+@Component
 @Data
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name= "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User extends TimeStampModel {
 
@@ -29,7 +33,7 @@ public class User extends TimeStampModel {
     public String email;
     private String password;
     
-    private Integer enterValue=2;
+    private int enterValue=2;
 
     private boolean activeOrPassive=true;
 
@@ -46,9 +50,8 @@ public class User extends TimeStampModel {
 
     private Collection<Role> roles;
 
-    public User(){
-    }
-    public User(String firstName, String lastName, String email, String password,Integer enterValue,boolean activeOrPassive, Collection<Role> roles) {
+
+    public User(String firstName, String lastName, String email, String password,int enterValue,boolean activeOrPassive, Collection<Role> roles) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
