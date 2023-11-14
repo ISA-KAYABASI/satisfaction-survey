@@ -14,7 +14,7 @@
     <name>Main-Term-Project</name>
     <description>Main-Term-Project</description>
     <properties>
-        <java.version>17</java.version>
+        <java.version>11</java.version>
     </properties>
     <dependencies>
         <dependency>
