@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.IsaKayabasi</groupId>
-    <artifactId>Main-Term-Project</artifactId>
+    <artifactId>satisfaction-survey</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Main-Term-Project</name>
-    <description>Main-Term-Project</description>
+    <description>satisfaction-survey</description>
     <properties>
         <java.version>11</java.version>
     </properties>
