@@ -11,7 +11,7 @@
     <groupId>com.IsaKayabasi</groupId>
     <artifactId>satisfaction-survey</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Main-Term-Project</name>
+    <name>satisfaction-survey</name>
     <description>satisfaction-survey</description>
     <properties>
         <java.version>11</java.version>
